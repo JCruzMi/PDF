@@ -1,10 +1,15 @@
 <template lang="pug">
   <div id="app">
     <navbar></navbar>
+  .div
+    <prueba></prueba>
+
   </div>
 </template>
 <script>
 import Navbar from './components/Navbar'
+import Prueba from './components/Prueba'
+
 import Firebase from 'firebase'
 
 // Initialize Firebase
@@ -28,7 +33,8 @@ export default {
     links: linksRef
   },
   components: {
-    Navbar
+    Navbar,
+    Prueba
   }
 }
 </script>
