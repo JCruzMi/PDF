@@ -3,7 +3,7 @@
       li
         a(href="#") Login
       li
-        a(href="#") EntidadEPS
+        a(href="#") Entidades
       li
         a(href="#") Acerca de
 </template>
