@@ -37,7 +37,7 @@ ul li a:hover{
   transform: scale(2);
   opacity: 1;
   color: #000;
-  transition: 0.5s;
+  transition: 0.9s;
   filter: blur(0);
 }
 ul li a:before{
@@ -48,7 +48,7 @@ ul li a:before{
   width: 100%;
   height: 100%;
   background: #F0FFF0;
-  transition: transform 0.5s;
+  transition: transform 0.9s;
   transform-origin: right;
   transform: scaleX(0);
   z-index: -1;
