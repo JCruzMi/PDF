@@ -1,0 +1,44 @@
+
+.cardBox{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:  translate(-50%, -50%);
+  perspective: 1000px;
+}
+.cardBox .card{
+  position: relative;
+  width: 525px;
+  height: 300px;
+  background: #262626;
+  transform-style: preserve-3d;
+  transition:  1s ease;
+}
+.cardBox .card .card-front{
+  background-color:
+}
+.cardBox .card .card-back{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility:  hidden;
+}
+
+.cardBox .card .card-front{
+  display: flex;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
+}
+.cardBox .card .card-back{
+  background: #f00;
+}
+
+.cardBox:hover .card{
+  transform: rotateY(180deg);
+ }
+ .cardBox:after .card .card-back{
+   transform: rotateY(180deg);
+  }
