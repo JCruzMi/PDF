@@ -2,18 +2,22 @@
   .cardBox
     .card
       .card-front
-        .content
-          h2 Rellenar
+        <login></login>
 
       .card-back
-        .content
-          h2 Rellenar </br> Formulario
+        h2 Rellenar </br> Formulario
 
 </template>
 
 <script>
+import Firebase from 'firebase'
+import Login from './Login'
+
 export default {
-  name:'Prueba'
+  name:'Prueba',
+  components: {
+    Login
+  }
 }
 </script>
 

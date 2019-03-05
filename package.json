@@ -15,6 +15,8 @@
     "pug": "^2.0.3",
     "sass": "^1.17.2",
     "vue": "^2.5.2",
+    "vue-resource": "^1.5.1",
+    "vue-router": "^3.0.2",
     "vuefire": "^1.4.5"
   },
   "devDependencies": {
