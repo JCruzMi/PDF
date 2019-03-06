@@ -1,40 +1,43 @@
 <template lang="pug">
   <div id="app">
     <navbar></navbar>
-  .div
     <prueba></prueba>
-
+    <register></register>
   </div>
+
 </template>
 <script>
 import Navbar from './components/Navbar'
 import Prueba from './components/Prueba'
+import Register from './components/Register'
 
 import Firebase from 'firebase'
-  
+
 // Initialize Firebase
-var config = {
-  apiKey: "AIzaSyBFj-lg982o-NThEglGlQkSRrQQSxfXBTk",
-  authDomain: "vuefire-4e280.firebaseapp.com",
-  databaseURL: "https://vuefire-4e280.firebaseio.com",
-  projectId: "vuefire-4e280",
-  storageBucket: "",
-  messagingSenderId: "782260865313"
-};
+import config from './config'
 
 let app = Firebase.initializeApp(config);
 let db = app.database();
 
-let linksRef = db.ref('links')
+let websiteRef = db.ref('website')
 
 export default {
   name: 'App',
   firebase: {
-    links: linksRef
+    website: websiteRef
+  },
+  data() {
+    return {
+      newWebsite: {
+        id: '',
+        pdfs: ''
+      }
+    }
   },
   components: {
     Navbar,
-    Prueba
+    Prueba,
+    Register
   }
 }
 </script>

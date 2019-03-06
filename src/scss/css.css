@@ -31,11 +31,13 @@ ul li a{
 ul:hover li a{
   transform: scale(1.5);
   opacity: .2;
+  text-decoration:none;
   filter: blur(5px);
 }
 ul li a:hover{
   transform: scale(1.4);
   opacity: 1;
+  text-decoration:none;
   color: #000;
   transition: 0.9s;
   filter: blur(0);
@@ -46,6 +48,7 @@ ul li a:before{
   top: 0;
   left: 0;
   width: 100%;
+  text-decoration:none;
   height: 100%;
   background: #F0FFF0;
   transition: transform 0.9s;
@@ -56,6 +59,7 @@ ul li a:before{
 ul li a:hover:before{
   transition: transform 0.5s;
   transform-origin: left;
+  text-decoration:none; 
   transform: scaleX(1);
 }
 

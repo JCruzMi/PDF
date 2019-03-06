@@ -1,17 +1,25 @@
 <template lang="pug">
     ul
       li
-        a(href="#") Login
+        a(href="/")  Login
       li
-        a(href="#") Entidades
+        a(href="/") Entidades
       li
-        a(href="#") Acerca de
-        
+        a(href="/") Acerca de
+
+
 </template>
 
 <script>
+import Prueba from '../components/Prueba'
+
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    flip: function() {
+      $('.card').toggleClass('flipped');
+    }
+  }
 }
 </script>
 
