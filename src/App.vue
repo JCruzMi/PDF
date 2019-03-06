@@ -1,7 +1,6 @@
 <template lang="pug">
   <div id="app">
     <navbar></navbar>
-    <prueba></prueba>
     <register></register>
   </div>
 
@@ -30,7 +29,9 @@ export default {
     return {
       newWebsite: {
         id: '',
-        pdfs: ''
+        nombre: '',
+        apellido: '',
+        correo: ''
       }
     }
   },

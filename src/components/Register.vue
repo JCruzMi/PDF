@@ -11,13 +11,13 @@
           <form class="form-signin">
 
             <div class="form-label-group">
-              <input type="id" id="inputID" class="form-control" placeholder="Cedula" v-model="id">
+              <input type="id" id="inputID" class="form-control" placeholder="Cedula" v-model="newWebsite.id">
             </div>
             <div class="form-label-group" style="padding-top: 10px;">
-              <input type="string" id="inputNombre" class="form-control" placeholder="Nombre" v-model="id">
+              <input type="text" id="inputNombre" class="form-control" placeholder="Nombre" v-model="newWebsite.nombre">
             </div>
             <div class="form-label-group" style="padding: 10px 0;">
-              <input type="string" id="inputApellifo" class="form-control" placeholder="Apellido" v-model="id">
+              <input type="text" id="inputApellifo" class="form-control" placeholder="Apellido" v-model="nnewWebsite.apellido">
             </div>
 
             button(class="btn btn-lg btn-primary btn-block text-uppercase" type="submit", @click="login") Add
