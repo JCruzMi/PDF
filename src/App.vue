@@ -2,9 +2,12 @@
   <div id="app">
     div
       <navbar></navbar>
+      <router-view></router-view>
     div
       br
-      <prueba></prueba>
+    // <prueba></prueba>
+
+    div
       <Register></register>
     div
       br
