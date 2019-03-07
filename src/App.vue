@@ -1,7 +1,18 @@
 <template lang="pug">
   <div id="app">
-    <navbar></navbar>
-    <register></register>
+    div
+      <navbar></navbar>
+    div
+      br
+      <prueba></prueba>
+      <Register></register>
+    div
+      br
+      h1 hola
+      div
+        tr(v-for="usuario in website")
+          td {{usuario.nombre}}
+          td {{usuario.apellido}}
   </div>
 
 </template>
@@ -10,30 +21,13 @@ import Navbar from './components/Navbar'
 import Prueba from './components/Prueba'
 import Register from './components/Register'
 
-import Firebase from 'firebase'
+import {db, websiteRef} from './config'
 
-// Initialize Firebase
-import config from './config'
-
-let app = Firebase.initializeApp(config);
-let db = app.database();
-
-let websiteRef = db.ref('website')
 
 export default {
   name: 'App',
   firebase: {
     website: websiteRef
-  },
-  data() {
-    return {
-      newWebsite: {
-        id: '',
-        nombre: '',
-        apellido: '',
-        correo: ''
-      }
-    }
   },
   components: {
     Navbar,

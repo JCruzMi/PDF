@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import Prueba from '../components/Prueba'
 
 export default {
   name: 'Navbar',
