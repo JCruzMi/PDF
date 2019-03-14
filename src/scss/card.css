@@ -1,29 +1,18 @@
 
 .cardBox{
-  position: absolute;
+  position: relative;
   top: 50%;
-  left: 50%;
-  transform:  translate(-50%, -50%);
-  perspective: 1000px;
+  left: 5%;
+  perspective: 800px;
 }
 .cardBox .card{
+  border: 0px;
   position: relative;
   width: 525px;
   height: 300px;
-  background: #262626;
+  background: #112c38;
   transform-style: preserve-3d;
-  transition:  1s ease;
-}
-.cardBox .card .card-front{
-  background-color:
-}
-.cardBox .card .card-back{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility:  hidden;
+  transition: 1s;
 }
 
 .cardBox .card .card-front{
@@ -32,8 +21,19 @@
   justify-content: center;
   align-items: center;
 }
+
 .cardBox .card .card-back{
-  background: #f00;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: rotateY(180deg);
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.cardBox .card .card-back{
+  background: #ff8;
 }
 
 .cardBox:hover .card{
@@ -41,4 +41,24 @@
  }
  .cardBox:after .card .card-back{
    transform: rotateY(180deg);
+   background-color: #2980b9;
+   color: white;
   }
+
+.card-signin .card-body {
+  padding: 2rem;
+  position: relative;
+}
+
+.form-signin {
+  width: 100%;
+  position: relative;
+}
+
+.form-signin .btn {
+  font-size: 50%;
+  border-radius: 5rem;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+}
