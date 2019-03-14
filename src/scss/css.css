@@ -59,7 +59,7 @@ ul li a:before{
 ul li a:hover:before{
   transition: transform 0.5s;
   transform-origin: left;
-  text-decoration:none; 
+  text-decoration:none;
   transform: scaleX(1);
 }
 
