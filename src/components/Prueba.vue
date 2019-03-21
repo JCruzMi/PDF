@@ -1,35 +1,48 @@
 <template lang="pug">
   div
-    .cardBox
-      .card
-        .card-front
-          h2 Rellenar </br> Formulario
+    .card
+      .card-back
+        .card-body
+          h2(class="card-title text-center") Sign In
+          <form class="form-signin" @submit.prevent="login">
+            <div class="form-label-group">
+              <input type="email" class="form-control" placeholder="Correo" v-model="loginUser.correo" required>
+            </div>
+            <div class="form-label-group" style="padding-top: 10px;">
+              <input type="password" class="form-control" placeholder="Contraseña/Cedula" required v-model="loginUser.id">
+            </div>
 
-        .card-back
-          <div class="card-body">
-            <h2 class="card-title text-center">Sign In</h2>
-            <form class="form-signin">
-
-              <div class="form-label-group">
-                <input type="id" class="form-control" placeholder="Cedula" v-model="id">
-              </div>
-
-              <div class="form-label-group" style="padding: 10px 0;">
-                <input type="password" class="form-control" placeholder="Contraseña" required v-model="password">
-              </div>
-
-              button(class="btn btn-lg btn-primary btn-block text-uppercase" type="submit") Sign in
-            </form>
-          </div>
+            button(class="btn btn-lg btn-primary btn-block text-uppercase" type="submit") Sign in
+          </form>
 
 
 </template>
 
 <script>
-import Firebase from 'firebase'
+import firebase from 'firebase'
 
 export default {
-  name:'Prueba'
+  name:'Prueba',
+  data: function() {
+    return {
+      loginUser: {
+        id: '',
+        correo: ''
+      }
+    }
+  },
+  methods: {
+    login(){
+        firebase.auth().signInWithEmailAndPassword(this.loginUser.correo, this.loginUser.id).then((user) => {
+          this.$router.replace('/')
+          alert('Usuario iniciadao')
+        }).catch((err) => {
+          alert(err.message)
+        })
+    }
+  },
+  created(){
+  }
 }
 </script>
 

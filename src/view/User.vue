@@ -15,8 +15,11 @@
 
       //Formulario para registrar usuarios
 
-      div(v-if="false")
+      div(v-if="true")
         register
+
+      div(v-if="true")
+        prueba
     //
 
     div(v-if="false")
@@ -45,12 +48,15 @@
 <script>
 import {db, websiteRef} from '../config'
 import Register from '../components/Register'
+import Prueba from '../components/Prueba'
+
 
 
 export default {
   name: 'User',
   components: {
-    Register
+    Register,
+    Prueba
   },
   firebase: {
     website: websiteRef

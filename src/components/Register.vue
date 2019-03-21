@@ -15,7 +15,7 @@
               <input type="text" id="inputApellifo" class="form-control" placeholder="Apellido" v-model="newWebsite.apellido" required>
             </div>
             <div class="form-label-group" style="padding: 10px 0;">
-              <input type="mail" id="inputCorreo" class="form-control" placeholder="Correo" v-model="newWebsite.correo" required>
+              <input type="email" id="inputCorreo" class="form-control" placeholder="Correo" v-model="newWebsite.correo" required>
             </div>
             button(class="btn btn-lg btn-primary btn-block text-uppercase" type="submit") Add
           </form>
@@ -48,6 +48,7 @@ export default {
       this.newWebsite.nombre = '';
       this.newWebsite.apellido = '';
       this.newWebsite.correo = '';
+      alert('Usuario Creado con exito')
     }
   }
 }

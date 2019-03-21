@@ -13,6 +13,8 @@
         li(v-for="act in i.activities", v-if="i.actividad == 'User'")
           a(href="/") {{act.title}}
 
+
+
 </template>
 
 <script>
@@ -45,9 +47,6 @@ export default {
   methods: {
     flip: function() {
       $('.card').toggleClass('flipped');
-    },
-    cambio: function(){
-      condicion: !(condicion);
     }
   }
 }
