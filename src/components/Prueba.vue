@@ -38,6 +38,7 @@ export default {
           alert('Usuario iniciadao')
         }).catch((err) => {
           alert(err.message)
+          alert("No se Iniciar el Usuario")
         })
     }
   },

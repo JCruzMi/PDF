@@ -25,6 +25,8 @@
 <script>
 
 import {db, websiteRef} from '../config'
+import firebase from 'firebase'
+
 
 export default {
   name:'Register',
@@ -43,12 +45,16 @@ export default {
   },
   methods:{
     addSubmit(){
+      firebase.auth().createUserWithEmailAndPassword(this.newWebsite.correo.toString(), this.newWebsite.id.toString()).catch(function(error) {
+       alert(error.code);
+       alert(error.message);
+      });
       websiteRef.push(this.newWebsite);
       this.newWebsite.id = '';
       this.newWebsite.nombre = '';
       this.newWebsite.apellido = '';
       this.newWebsite.correo = '';
-      alert('Usuario Creado con exito')
+
     }
   }
 }
