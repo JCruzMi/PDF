@@ -20,6 +20,7 @@
 
 <script>
 import firebase from 'firebase'
+import {db, websiteRef} from '../config'
 
 export default {
   name:'Prueba',
@@ -28,21 +29,30 @@ export default {
       loginUser: {
         id: '',
         correo: ''
-      }
+      },
+      usu : ""
     }
   },
   methods: {
     login(){
         firebase.auth().signInWithEmailAndPassword(this.loginUser.correo, this.loginUser.id).then((user) => {
-          this.$router.replace('/')
+          this.$router.replace('/User')
           alert('Usuario iniciadao')
         }).catch((err) => {
           alert(err.message)
           alert("No se Iniciar el Usuario")
         })
+    },
+    busca(){
+      for(i in website){
+        if(i.correo = this.loginUser.correo){
+          usu = i.nombre + i.apellido
+        }
+      }
     }
   },
-  created(){
+  firebase: {
+    website: websiteRef
   }
 }
 </script>

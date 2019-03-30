@@ -1,6 +1,22 @@
 <template lang="pug">
   .container
-    div(class="col")
+    nav(class="navbar navbar-expand-lg navbar-light")
+      a(class="navbar-brand" href="/") BIENVENIDO
+      button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
+        span(class="navbar-toggler-icon")
+      div(class="collapse navbar-collapse" id="navbarText")
+        ul(class="navbar-nav mr-auto")
+          li(class="nav-item")
+            a(class="nav-link" href="/") Eps
+          li(class="nav-item")
+            a(class="nav-link" href="/" @click.prevent="pdfs = !pdfs") Mostrar mis pdfs
+          li(class="nav-item")
+            a(class="nav-link" href="/" @click="logout") Desconectar
+
+
+    //Ver usuarios
+
+    div.col-xl
       table(id="ue" class="table table-bordered" style="width: 100%")
         thead
           tr
@@ -18,8 +34,6 @@
       div(v-if="true")
         register
 
-      div(v-if="true")
-        prueba
     //
 
     div(v-if="false")
@@ -48,23 +62,38 @@
 <script>
 import {db, websiteRef} from '../config'
 import Register from '../components/Register'
-import Prueba from '../components/Prueba'
-
+import firebase from 'firebase'
 
 
 export default {
   name: 'User',
-  components: {
-    Register,
-    Prueba
+  data() {
+    return {
+      pdfs : false,
+      contacto : false,
+      isLogin : false,
+      currentUser : false
+    }
   },
+  methods: {
+    logout: function(){
+    firebase.auth().singOut().then(() => {
+      this.$router.push('/');
+      });
+    }
+  },
+  components: {
+    Register
+    },
   firebase: {
     website: websiteRef
   }
 }
 </script>
 
-<style>
+<style lang="css">
+@import "../scss/css.css";
+
 #ue {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,4 +103,5 @@ export default {
   background-color: #fff;
   margin-top: 60px;
 }
+
 </style>

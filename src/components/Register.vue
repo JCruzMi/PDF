@@ -6,7 +6,7 @@
           <h2 class="card-title text-center">FORMULARIO DE REGISTRO DE USUARIOS</h2>
           <form class="form-signin" @submit.prevent="addSubmit" >
             <div class="form-label-group">
-              <input type="id" id="inputID" class="form-control" placeholder="Cedula" v-model="newWebsite.id" required>
+              <input type="number" id="inputID" class="form-control" placeholder="Cedula" v-model="newWebsite.id" required>
             </div>
             <div class="form-label-group" style="padding-top: 10px;">
               <input type="text" id="inputNombre" class="form-control" placeholder="Nombre" v-model="newWebsite.nombre" required>
@@ -45,16 +45,18 @@ export default {
   },
   methods:{
     addSubmit(){
-      firebase.auth().createUserWithEmailAndPassword(this.newWebsite.correo.toString(), this.newWebsite.id.toString()).catch(function(error) {
-       alert(error.code);
-       alert(error.message);
-      });
-      websiteRef.push(this.newWebsite);
-      this.newWebsite.id = '';
-      this.newWebsite.nombre = '';
-      this.newWebsite.apellido = '';
-      this.newWebsite.correo = '';
+      firebase.auth().createUserWithEmailAndPassword(this.newWebsite.correo.toString(), this.newWebsite.id.toString())
+        .then(user => {
+          websiteRef.push(this.newWebsite);
+          this.newWebsite.id = '';
+          this.newWebsite.nombre = '';
+          this.newWebsite.apellido = '';
+          this.newWebsite.correo = '';
 
+      }).catch((err) => {
+        alert(err.code);
+        alert(err.message)
+      })
     }
   }
 }
