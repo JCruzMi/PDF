@@ -53,7 +53,8 @@
     //en desarrollo
 
     .container(v-if="isLoggedIn && pdfs")
-      submitpdf
+      div(col-xl)
+        submitpdf
 
     //Ver mis pdfs Usuarui normal
     //Busca en l base de datos todos los usuarios y me trae el correspondiente

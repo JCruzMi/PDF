@@ -20,3 +20,4 @@ const app = Firebase.initializeApp({
 
 export const db = app.database();
 export const websiteRef = db.ref('usuarios');
+export const linkspdfs = db.ref('linkspdfs')
