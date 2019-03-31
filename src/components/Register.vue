@@ -47,7 +47,6 @@ export default {
     addSubmit(){
       firebase.auth().createUserWithEmailAndPassword(this.newWebsite.correo.toString(), this.newWebsite.id.toString())
         .then(user => {
-          displayName: this.newWebsite.nombre +  this.newWebsite.apellido ;
           websiteRef.push(this.newWebsite);
           this.newWebsite.id = '';
           this.newWebsite.nombre = '';
