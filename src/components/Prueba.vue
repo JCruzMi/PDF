@@ -36,7 +36,7 @@ export default {
   methods: {
     login(){
         firebase.auth().signInWithEmailAndPassword(this.loginUser.correo, this.loginUser.id).then((user) => {
-          this.$router.replace('/User')
+          this.$router.go({path: this.$router.path})
           alert('Usuario iniciadao')
         }).catch((err) => {
           alert(err.message)

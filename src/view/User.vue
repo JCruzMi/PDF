@@ -1,36 +1,40 @@
 <template lang="pug">
   .container
     nav(class="navbar navbar-expand-lg navbar-light")
-      a(class="navbar-brand" href="/") BIENVENIDO
+      a(class="navbar-brand" href="/") BIENVENIDO </br> {{currentUser}}
       button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
         span(class="navbar-toggler-icon")
       div(class="collapse navbar-collapse" id="navbarText")
         ul(class="navbar-nav mr-auto")
-          li(class="nav-item")
+          li(v-if="!isLoggedIn" class="nav-item")
             a(class="nav-link" href="/") Eps
-          li(class="nav-item")
+          li(v-if="!isLoggedIn" class="nav-item")
             a(class="nav-link" href="/" @click.prevent="pdfs = !pdfs") Mostrar mis pdfs
+          li(v-if="isLoggedIn" class="nav-item")
+            a(class="nav-link" href="/" @click.prevent="showUsers = !showUsers") Mostrar usuarios
+          li(v-if="isLoggedIn" class="nav-item")
+            a(class="nav-link" href="/" @click.prevent="newRegister = !newRegister") Nuevo Usuario
           li(class="nav-item")
             a(class="nav-link" href="/" @click="logout") Desconectar
 
 
     //Ver usuarios
-
-    div.col-xl
-      table(id="ue" class="table table-bordered" style="width: 100%")
-        thead
-          tr
-            th(scope="col") Usuarios
-            th(scope="col") Correos
-            th(scope="col") Cedula
-        tbody
-          tr(v-for="usuario in website")
-            th(scope="col") {{usuario.nombre}} {{usuario.apellido}}
-            th(scope="col") {{usuario.correo}}
-            th(scope="col") {{usuario.id}}
+    .container(v-if="showUsers")
+      div.col-xl
+        table(id="ue" class="table table-bordered" style="width: 100%")
+          thead
+            tr
+              th(scope="col") Usuarios
+              th(scope="col") Correos
+              th(scope="col") Cedula
+          tbody
+            tr(v-for="usuario in website")
+              th(scope="col") {{usuario.nombre}} {{usuario.apellido}}
+              th(scope="col") {{usuario.correo}}
+              th(scope="col") {{usuario.id}}
 
       //Formulario para registrar usuarios
-
+    .container(v-if="newRegister")
       div(v-if="true")
         register
 
@@ -71,14 +75,24 @@ export default {
     return {
       pdfs : false,
       contacto : false,
-      isLogin : false,
+      showUsers : false,
+      newRegister : false,
+      isLoggedIn : false,
       currentUser : false
+    }
+  },
+  created(){
+    if(firebase.auth().currentUser){
+      this.currentUser = firebase.auth().currentUser.email;
+    }
+    if(firebase.auth().currentUser.email == "juan@gmail.com"){
+      this.isLoggedIn = true;
     }
   },
   methods: {
     logout: function(){
-    firebase.auth().singOut().then(() => {
-      this.$router.push('/');
+    firebase.auth().signOut().then(() => {
+      this.$router.go({path: this.$router.path})
       });
     }
   },
