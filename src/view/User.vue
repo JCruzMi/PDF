@@ -50,7 +50,10 @@
       register
 
     //Formulario para subir pdfs
-    //en desarrollo
+    //Permite subir pdfs a firebase
+    //Guarda cc y link para descargar el pdf en una tabla nueva
+    //Validar el campo cc exista
+    //Validar que el cc no tenga el mismo pdf
 
     .container(v-if="isLoggedIn && pdfs")
       div(col-xl)
