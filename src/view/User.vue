@@ -29,18 +29,25 @@
     //Que el admin no aparezca
 
     .container(v-if="isLoggedIn && showUsers")
+      br
       div(col-xl)
+        input(v-model="search" placeholder="Buscar Usuario")
         table(id="ue" class="table table-bordered" style="width: 100%")
           thead
             tr
-              th(scope="col") Usuarios
-              th(scope="col") Correos
-              th(scope="col") Cedula
+              th(scope="col") USUARIOS
+              th(scope="col") CORREOS
+              th(scope="col") CEDULA
           tbody
-            tr(v-for="usuario in website")
-              th(scope="col") {{usuario.nombre}} {{usuario.apellido}}
-              th(scope="col") {{usuario.correo}}
+            tr(v-for="usuario in website" v-if="search.toUpperCase() == usuario.nombre.toUpperCase() || search.toUpperCase() == usuario.apellido.toUpperCase()")
+              th(scope="col") {{usuario.nombre.toUpperCase()}} {{usuario.apellido.toUpperCase()}}
+              th(scope="col") {{usuario.correo.toUpperCase()}}
               th(scope="col") {{usuario.id}}
+            tr(v-for="usuario in website" v-if="!search")
+              th(scope="col") {{usuario.nombre.toUpperCase()}} {{usuario.apellido.toUpperCase()}}
+              th(scope="col") {{usuario.correo.toUpperCase()}}
+              th(scope="col") {{usuario.id}}
+
 
     //Formulario para registrar usuarios
     //Permite el registro de un nuevo usuario
@@ -78,16 +85,17 @@
               th(scope="col") Fecha toma examen
               th(scope="col") Nombre del examen
               th(scope="col") PDF
-            tr
-              td(scope="col") Fecha
-              td(scope="col") {{usuario.apellido}}
-              td(scope="col") Descargar
+            tr(v-for="pdfs in links" v-if="pdfs.cc == usuario.id")
+              td(scope="col") {{pdfs.fecha}}
+              td(scope="col") {{pdfs.name}}
+              td(scope="col") 
+                a(v-bind:href="pdfs.downloadUrl" target="_blank") Descargar
 
 
 </template>
 
 <script>
-import {db, websiteRef} from '../config'
+import {db, websiteRef, linkspdfs} from '../config'
 import Register from '../components/Register'
 import Submitpdf from '../components/Submitpdf'
 import firebase from 'firebase'
@@ -102,7 +110,8 @@ export default {
       showUsers : false,
       newRegister : false,
       isLoggedIn : false,
-      currentUser : false
+      currentUser : false,
+      search : ''
     }
   },
   created(){
@@ -125,7 +134,8 @@ export default {
     Submitpdf
     },
   firebase: {
-    website: websiteRef
+    website: websiteRef,
+    links: linkspdfs
   }
 }
 </script>

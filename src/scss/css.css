@@ -10,6 +10,7 @@ body{
 ul{
   margin: 0;
   padding: 0;
+  background: #c7b0b0;
   display: flex;
 }
 ul li{
@@ -22,7 +23,7 @@ ul li a{
   position: relative;
   text-decoration: none;
   padding: 5px;
-  font-size: 18px;
+  font-size: 12px;
   font-family: sans-serif;
   color: #fff;
   text-transform: uppercase;
