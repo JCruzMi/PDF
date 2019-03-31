@@ -11,7 +11,11 @@
           li(v-if="!isLoggedIn" class="nav-item")
             a(class="nav-link" href="/" @click.prevent="pdfs = !pdfs") Mostrar mis pdfs
           li(v-if="isLoggedIn" class="nav-item")
+            a(class="nav-link" href="/" @click.prevent="pdfs = !pdfs") Subir Pdf
+          li(v-if="isLoggedIn" class="nav-item")
             a(class="nav-link" href="/" @click.prevent="showUsers = !showUsers") Mostrar usuarios
+          li(v-if="!isLoggedIn" class="nav-item")
+            a(class="nav-link" href="/" @click.prevent="showUsers = !showUsers") Info
           li(v-if="isLoggedIn" class="nav-item")
             a(class="nav-link" href="/" @click.prevent="newRegister = !newRegister") Nuevo Usuario
           li(class="nav-item")
@@ -19,8 +23,13 @@
 
 
     //Ver usuarios
-    .container(v-if="showUsers")
-      div.col-xl
+    //Permite al admin visualizar todos los USUARIOS
+
+    //Falta una buscador
+    //Que el admin no aparezca
+
+    .container(v-if="isLoggedIn && showUsers")
+      div(col-xl)
         table(id="ue" class="table table-bordered" style="width: 100%")
           thead
             tr
@@ -33,32 +42,42 @@
               th(scope="col") {{usuario.correo}}
               th(scope="col") {{usuario.id}}
 
-      //Formulario para registrar usuarios
-    .container(v-if="newRegister")
-      div(v-if="true")
-        register
+    //Formulario para registrar usuarios
+    //Permite el registro de un nuevo usuario
+    //Falta implementar que al cedula sea unica
 
-    //
+    .container(v-if="isLoggedIn && newRegister")
+      register
 
-    div(v-if="false")
-      h1 Usuarios
-      tr(v-for="usuario in website")
-        p Nombres: {{usuario.nombre}}
-        p Apellidos: {{usuario.apellido}}
+    //Formulario para subir pdfs
+    //en desarrollo
+
+    .container(v-if="isLoggedIn && pdfs")
+      submitpdf
+
+    //Ver mis pdfs Usuarui normal
+    //Busca en l base de datos todos los usuarios y me trae el correspondiente
+    //registrado
+
+    //Falta implementar el subir los dpfs y poder descargarlos
+    .container(v-if="!isLoggedIn && showUsers")
+      br
+      tr(v-for="usuario in website", v-if=("usuario.correo == currentUser"))
+        p Nombres: {{usuario.nombre}} {{usuario.apellido}}
         p Cedula: {{usuario.id}}
-        .row
-          <div class="col">
-            table(id="ue" class="table table-bordered" style="width: 100%")
-              thead
-                tr
-                  th(scope="col") Fecha toma examen
-                  th(scope="col") Nombre del examen
-                  th(scope="col") PDF
-                tr
-                  td(scope="col") Fecha
-                  td(scope="col") {{usuario}}
-                  td(scope="col") Descargar
-          </div>
+        p Estos son sus datos
+    .container(v-if="!isLoggedIn && pdfs")
+      div(col-xl v-for="usuario in website", v-if=("usuario.correo == currentUser"))
+        table(id="ue" class="table table-bordered" style="width: 100%")
+          thead
+            tr
+              th(scope="col") Fecha toma examen
+              th(scope="col") Nombre del examen
+              th(scope="col") PDF
+            tr
+              td(scope="col") Fecha
+              td(scope="col") {{usuario.apellido}}
+              td(scope="col") Descargar
 
 
 </template>
@@ -66,6 +85,7 @@
 <script>
 import {db, websiteRef} from '../config'
 import Register from '../components/Register'
+import Submitpdf from '../components/Submitpdf'
 import firebase from 'firebase'
 
 
@@ -92,12 +112,13 @@ export default {
   methods: {
     logout: function(){
     firebase.auth().signOut().then(() => {
-      this.$router.go({path: this.$router.path})
+      this.$router.push('/');
       });
     }
   },
   components: {
-    Register
+    Register,
+    Submitpdf
     },
   firebase: {
     website: websiteRef
@@ -114,8 +135,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   text-color: #000;
-  background-color: #fff;
+  background-color: #7e5656;
   margin-top: 60px;
 }
 
+
+
+.col-center{
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
