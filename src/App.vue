@@ -1,7 +1,6 @@
 <template lang="pug">
   <div id="app">
-    navbar
-    br
+    
     <router-view></router-view>
 
   </div>
@@ -38,4 +37,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+@import "../scss/css.css";
+
 </style>
