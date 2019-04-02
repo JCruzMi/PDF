@@ -44,6 +44,10 @@ export default {
     }
   },
   methods:{
+    /*
+    *función que agrega un usuario nuevo
+    *por medio de autentificacion de firebase
+    */
     addSubmit(){
       firebase.auth().createUserWithEmailAndPassword(this.newWebsite.correo.toString(), this.newWebsite.id.toString())
         .then(user => {

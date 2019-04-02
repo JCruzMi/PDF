@@ -67,18 +67,22 @@
         submitpdf
 
     //Ver mis pdfs Usuarui normal
-    //Busca en l base de datos todos los usuarios y me trae el correspondiente
+    //Busca en la base de datos todos los usuarios y me trae el correspondiente
     //registrado
 
-    //Falta implementar el subir los dpfs y poder descargarlos
+    //Info
+
     .container(v-if="!isLoggedIn && showUsers")
       br
       tr(v-for="usuario in website", v-if=("usuario.correo == currentUser"))
         p Nombres: {{usuario.nombre}} {{usuario.apellido}}
         p Cedula: {{usuario.id}}
         p Estos son sus datos
+
+    //examenes
+
     .container(v-if="!isLoggedIn && pdfs")
-      div(col-xl v-for="usuario in website", v-if=("usuario.correo == currentUser"))
+      div(col-xl v-for="usuario in website.sort()", v-if=("usuario.correo == currentUser"))
         table(id="ue" class="table table-bordered" style="width: 100%")
           thead
             tr
@@ -88,7 +92,7 @@
             tr(v-for="pdfs in links" v-if="pdfs.cc == usuario.id")
               td(scope="col") {{pdfs.fecha}}
               td(scope="col") {{pdfs.name}}
-              td(scope="col") 
+              td(scope="col")
                 a(v-bind:href="pdfs.downloadUrl" target="_blank") Descargar
 
 
@@ -114,6 +118,11 @@ export default {
       search : ''
     }
   },
+  /*
+  * created es una funcion de vue que se ejecuta antes de todo
+  * funcion que auentifica si un usuario esta creado
+  * y si es admind
+  */
   created(){
     if(firebase.auth().currentUser){
       this.currentUser = firebase.auth().currentUser.email;
@@ -123,6 +132,9 @@ export default {
     }
   },
   methods: {
+    /*
+    * funcion para desloguear a un usuario autentificado
+    */
     logout: function(){
     firebase.auth().signOut().then(() => {
       this.$router.push('/');

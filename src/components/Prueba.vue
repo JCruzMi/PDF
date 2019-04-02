@@ -34,15 +34,22 @@ export default {
     }
   },
   methods: {
+  /*
+  * funcion que me autentifica el inicio de usuario con la base de datos
+  * manda a una ruta segura
+  */
     login(){
         firebase.auth().signInWithEmailAndPassword(this.loginUser.correo, this.loginUser.id).then((user) => {
           this.$router.go({path: this.$router.path})
           alert('Usuario iniciadao')
         }).catch((err) => {
           alert(err.message)
-          alert("No se Iniciar el Usuario")
+          alert("Parece que el usuario o la contraseña estan mal")
         })
     },
+    /*
+    * funcion x.....
+    */
     busca(){
       for(i in website){
         if(i.correo = this.loginUser.correo){
