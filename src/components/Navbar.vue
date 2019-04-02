@@ -14,16 +14,16 @@
           a(:href="act.link") {{act.title}}
 
 
-//---------------Ordena----------------------------//
-//npm install vue2-filters
+          //---------------Ordena----------------------------//
+        //npm install vue2-filters
 
-//import Vue from 'vue'
-//import Vue2Filters from 'vue2-filters'
+        //import Vue from 'vue'
+        //import Vue2Filters from 'vue2-filters'
 
 
-// After that use it in the template
+        // After that use it in the template
 
-//<li v-for="c in orderBy(rooms,'last_iteraction')">
+        //<li v-for="c in orderBy(rooms,'last_iteraction')">
 
 
 </template>
