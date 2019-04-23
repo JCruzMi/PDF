@@ -20,7 +20,7 @@
     br
     transition(name="fade")
       .container(v-if="!exp && !contacto")
-        h1 Hello World
+        h1 BIENVENIDO </br> Esta pagina esta creada </br> con el proposito de ver sus PDFs </br> en su EPS de confianza.
 
     transition(name="fade")
       .container(v-if="exp")
@@ -50,16 +50,9 @@
                       td
                         a(href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWtDnGMFTkspSdkxhkjlQwcLzSXBfRHFZTfHMMfQjXtZNrdjQtWqvhWnSwPtHZTSrMwQWpbwV" target="_blank") <i class="fas fa-envelope"></i> jcruzmi08064
                     tr(style="color:#FFF")
-                      td Fabia
-                      td EAN
                       td
-                        a(href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWtDnGMFTkspSdkxhkjlQwcLzSXBfRHFZTfHMMfQjXtZNrdjQtWqvhWnSwPtHZTSrMwQWpbwV" target="_blank") <i class="fas fa-envelope"></i> fmezacr96407
-
-                    tr(style="color:#FFF")
-                      td Tatiana
-                      td EAN
                       td
-                        a(href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWtDnGMFTkspSdkxhkjlQwcLzSXBfRHFZTfHMMfQjXtZNrdjQtWqvhWnSwPtHZTSrMwQWpbwV" target="_blank") <i class="fas fa-envelope"></i> troblesr5459
+                      td
 
 
 </template>

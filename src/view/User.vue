@@ -25,7 +25,6 @@
     //Ver usuarios
     //Permite al admin visualizar todos los USUARIOS
 
-    //Falta una buscador
     //Que el admin no aparezca
 
     .container(v-if="isLoggedIn && showUsers")

@@ -14,7 +14,7 @@
           a(:href="act.link") {{act.title}}
 
 
-          //---------------Ordena----------------------------//
+        //---------------Ordena----------------------------//
         //npm install vue2-filters
 
         //import Vue from 'vue'
