@@ -30,15 +30,15 @@
     .container(v-if="isLoggedIn && showUsers")
       br
       div(col-xl)
-        input(v-model="search" placeholder="Buscar Usuario")
-        table(id="ue" class="table table-bordered" style="width: 100%")
+        input(v-model="search" placeholder="Buscar Usuario").text-center
+        table(id="ue" class="table" style="width: 100%").table-hover
           thead
             tr
               th(scope="col") USUARIOS
               th(scope="col") CORREOS
               th(scope="col") CEDULA
           tbody
-            tr(v-for="usuario in website" v-if="search.toUpperCase() == usuario.nombre.toUpperCase() || search.toUpperCase() == usuario.apellido.toUpperCase()")
+            tr(v-for="usuario in website" v-if="search.toUpperCase() == usuario.nombre.toUpperCase() || search.toUpperCase() == usuario.apellido.toUpperCase() || search == usuario.id")
               th(scope="col") {{usuario.nombre.toUpperCase()}} {{usuario.apellido.toUpperCase()}}
               th(scope="col") {{usuario.correo.toUpperCase()}}
               th(scope="col") {{usuario.id}}
@@ -81,14 +81,14 @@
     //examenes
 
     .container(v-if="!isLoggedIn && pdfs")
-      div(col-xl v-for="usuario in website.sort()", v-if=("usuario.correo == currentUser"))
-        table(id="ue" class="table table-bordered" style="width: 100%")
+      div(col-xl v-for="u in website", v-if=("u.correo == currentUser"))
+        table(id="ue" class="table" style="width: 100%").table-hover
           thead
             tr
               th(scope="col") Fecha toma examen
               th(scope="col") Nombre del examen
               th(scope="col") PDF
-            tr(v-for="pdfs in links" v-if="pdfs.cc == usuario.id")
+            tr(v-for="pdfs in listUser" v-if="pdfs.cc == u.id")
               td(scope="col") {{pdfs.fecha}}
               td(scope="col") {{pdfs.name}}
               td(scope="col")
@@ -114,6 +114,7 @@ export default {
       newRegister : false,
       isLoggedIn : false,
       currentUser : false,
+      listUser : null,
       search : ''
     }
   },
@@ -125,10 +126,28 @@ export default {
   created(){
     if(firebase.auth().currentUser){
       this.currentUser = firebase.auth().currentUser.email;
+      const us = firebase.auth().currentUser.email
+      const ref2 = db.child('usuarios').orderByChild('correo').equalTo(us)
+
+
+      const ref1 = db.child('linkspdfs').orderByChild('cc').equalTo('80028284')
+
+
+      ref1.on('value', snap => {
+          this.listUser = snap.val()
+        })
+
     }
     if(firebase.auth().currentUser.email == "juan@gmail.com"){
       this.isLoggedIn = true;
-    }
+
+
+      const ref1 = db.child('usuarios')
+
+      ref1.on('child_added', snap => {
+        this.listUser = snap.val()
+      })
+      }
   },
   methods: {
     /*
@@ -138,7 +157,11 @@ export default {
     firebase.auth().signOut().then(() => {
       this.$router.push('/');
       });
-    }
+    },
+    /*
+    * funcion que devuelve una lista de usuarios
+    */
+
   },
   components: {
     Register,
@@ -160,7 +183,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   text-color: #000;
-  background-color: #7e5656;
+  background-color: #396aa6;
   margin-top: 60px;
 }
 

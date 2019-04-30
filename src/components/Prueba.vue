@@ -41,7 +41,7 @@ export default {
     login(){
         firebase.auth().signInWithEmailAndPassword(this.loginUser.correo, this.loginUser.id).then((user) => {
           this.$router.go({path: this.$router.path})
-          alert('Usuario iniciadao')
+          alert('Usuario iniciado')
         }).catch((err) => {
           alert(err.message)
           alert("Parece que el usuario o la contraseña estan mal")

@@ -5,12 +5,12 @@ body{
   justify-content:  center;
   align-items: center;
   height: 0%;
-  background: #112c38;
+  background: #5a87bf;
 }
 ul{
   margin: 0;
   padding: 0;
-  background: #c7b0b0;
+  background: #fff;
   display: flex;
 }
 ul li{

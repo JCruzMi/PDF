@@ -18,6 +18,6 @@ const app = Firebase.initializeApp({
     messagingSenderId: "782260865313"
 });
 
-export const db = app.database();
-export const websiteRef = db.ref('usuarios');
-export const linkspdfs = db.ref('linkspdfs')
+export const db = app.database().ref();
+export const websiteRef = db.child('usuarios');
+export const linkspdfs = db.child('linkspdfs')

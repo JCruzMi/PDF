@@ -4,12 +4,12 @@
     input(type="number" id="inputID" class="form-control" placeholder="Cedula" v-model="newLinks.cc" required)
     br
     br
-    input(type="date" step="1" min="2019-01-01" max="2019-12-31" value="2019-01-01" v-model="newLinks.fecha" required)
+    input(type="date" step="1" min="2019-01-01" max="2019-12-31" value="2019-01-01" v-model="newLinks.fecha" required).btn.btn-primary
     br
     br
     br
-    input(type="file" @change="onFileSelected" accept="application/pdf" required)
-    button(@click="onUpload") Subir
+    input(type="file" @change="onFileSelected" accept="application/pdf" required).btn.btn-primary
+    button(@click="onUpload").btn.btn-success Subir PDF
 
 
 
