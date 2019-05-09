@@ -1,7 +1,8 @@
 <template lang="pug">
   .container
     nav(class="navbar navbar-expand-lg navbar-light")
-      a(class="navbar-brand" href="/") BIENVENIDO </br> {{currentUser}}
+      a(v-if="!isLoggedIn" class="navbar-brand" href="/") BIENVENIDO </br> {{currentUser}}
+      a(v-if="isLoggedIn" class="navbar-brand" href="/") BIENVENIDO </br> {{Object.values(this.listUser)[0].correo}}
       button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
         span(class="navbar-toggler-icon")
       div(class="collapse navbar-collapse" id="navbarText")
@@ -24,8 +25,6 @@
 
     //Ver usuarios
     //Permite al admin visualizar todos los USUARIOS
-
-    //Que el admin no aparezca
 
     .container(v-if="isLoggedIn && showUsers")
       br
@@ -126,34 +125,30 @@ export default {
   * trae todos los elementos para el admind, obviamente si esta logueado
   */
   async created(){
-    try{
+    this.$cookie.set('name', 'value', 1)
 
-      this.$cookie.set('name', 'value', 1)
+    if(firebase.auth().currentUser.email == "juan@gmail.com"){
+      this.isLoggedIn = true;
 
-      if(firebase.auth().currentUser.email == "juan@gmail.com"){
-        this.isLoggedIn = true;
-
-          this.uno()
-
-        }
-
-      if(firebase.auth().currentUser){
-        this.currentUser = firebase.auth().currentUser.email;
-
-        const us = await firebase.auth().currentUser.email
-        const ref2 = await db.child('usuarios').orderByChild('correo').equalTo(us)
-
-        await ref2.on('value', snap => {
-            this.listUser = snap.val()
-            console.log(this.listUser)
-          })
-
-        this.tres()
+        this.uno()
 
       }
-    }catch (error) {
-      console.error(error);
+
+    else if(firebase.auth().currentUser){
+      this.currentUser = firebase.auth().currentUser.email;
+
+      const us = await firebase.auth().currentUser.email
+      const ref2 = await db.child('usuarios').orderByChild('correo').equalTo(us)
+
+      await ref2.on('value', snap => {
+          this.listUser = snap.val()
+          console.log(this.listUser)
+        })
+
+      this.tres()
+
     }
+
   },
   methods: {
     /*
