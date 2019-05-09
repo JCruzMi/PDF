@@ -57,9 +57,6 @@ export default {
         }
       }
     }
-  },
-  firebase: {
-    website: websiteRef
   }
 }
 </script>

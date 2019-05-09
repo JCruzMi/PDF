@@ -3,8 +3,8 @@
     .card
       .card-back
         .card-body
-          <h2 class="card-title text-center">FORMULARIO DE REGISTRO DE USUARIOS</h2>
-          <form class="form-signin" @submit.prevent="addSubmit" >
+          h2(class="card-title text-center") FORMULARIO DE REGISTRO DE USUARIOS
+          form(class="form-signin" @submit.prevent="addSubmit")
             <div class="form-label-group">
               <input type="number" id="inputID" class="form-control" placeholder="Cedula" v-model="newWebsite.id" required>
             </div>
@@ -18,7 +18,7 @@
               <input type="email" id="inputCorreo" class="form-control" placeholder="Correo" v-model="newWebsite.correo" required>
             </div>
             button(class="btn btn-lg btn-primary btn-block text-uppercase" type="submit") Add
-          </form>
+
 
 </template>
 
@@ -30,9 +30,6 @@ import firebase from 'firebase'
 
 export default {
   name:'Register',
-  firebase: {
-    website: websiteRef
-  },
   data() {
     return {
       newWebsite: {
@@ -49,6 +46,7 @@ export default {
     *por medio de autentificacion de firebase
     */
     addSubmit(){
+      const website = websiteRef
       firebase.auth().createUserWithEmailAndPassword(this.newWebsite.correo.toString(), this.newWebsite.id.toString())
         .then(user => {
           websiteRef.push(this.newWebsite);

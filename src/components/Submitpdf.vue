@@ -44,13 +44,11 @@ export default {
     /*
     *async, ejecute linea por linea, sin el nos daria error con el links
     *hace referenciación a firebase store y guarda el pdf
-    *crea un nuevo "usuario cc/link" para luego trabajar
     */
     async onUpload(){
       try{
         const storageRef= await firebase.storage().ref(`/pdfs/${this.selectedFile.name}`).put(this.selectedFile);
         const url = await storageRef.ref.getDownloadURL();
-        console.log(url);
         this.newLinks.downloadUrl = url;
         this.newLinks.name = this.selectedFile.name;
         linkspdfs.push(this.newLinks);

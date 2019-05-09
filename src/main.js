@@ -4,15 +4,17 @@ import Vue from 'vue'
 import App from './App.vue'
 import firebase from 'firebase/app'
 import router from './routers'
+import VueCookies from 'vue-cookies'
 
+
+var VueCookie = require('vue-cookie');
+Vue.use(VueCookie);
 
 // Firebase
 
 import VueFire from 'vuefire';
 
 Vue.config.productionTip = false
-
-Vue.use(VueFire);
 
 let app;
 firebase.auth().onAuthStateChanged(user => {

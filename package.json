@@ -15,6 +15,9 @@
     "pug": "^2.0.3",
     "sass": "^1.17.2",
     "vue": "^2.5.2",
+    "vue-cookie": "^1.1.4",
+    "vue-cookieconsent-component": "^1.2.0",
+    "vue-cookies": "^1.5.13",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.2",
     "vuefire": "^1.4.5"

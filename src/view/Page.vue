@@ -36,6 +36,7 @@
         .footer.bg-dark
               br
               //-tabla con nombres, Universidad y correo de los creadores
+              //-contatos
               div.col-xl
                 table(class="table table-text-center",id="contact")
                   thead
@@ -68,6 +69,9 @@ export default {
       exp : false,
       contacto : false
     }
+  },
+  created(){
+    this.$cookie.set('test', 'Hello world!', 1);
   },
   methods: {
 

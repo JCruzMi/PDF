@@ -38,13 +38,13 @@
               th(scope="col") CORREOS
               th(scope="col") CEDULA
           tbody
-            tr(v-for="usuario in website" v-if="search.toUpperCase() == usuario.nombre.toUpperCase() || search.toUpperCase() == usuario.apellido.toUpperCase() || search == usuario.id")
+            tr(v-for="usuario in listUser" v-if="search.toUpperCase() == usuario.nombre.toUpperCase() || search.toUpperCase() == usuario.apellido.toUpperCase() || search == usuario.id")
               th(scope="col") {{usuario.nombre.toUpperCase()}} {{usuario.apellido.toUpperCase()}}
               th(scope="col") {{usuario.correo.toUpperCase()}}
               th(scope="col") {{usuario.id}}
-            tr(v-for="usuario in website" v-if="!search")
+            tr(v-for="usuario in listUser" v-if="!search")
               th(scope="col") {{usuario.nombre.toUpperCase()}} {{usuario.apellido.toUpperCase()}}
-              th(scope="col") {{usuario.correo.toUpperCase()}}
+              th(scope="col") {{usuario.correo}}
               th(scope="col") {{usuario.id}}
 
 
@@ -65,7 +65,7 @@
       div(col-xl)
         submitpdf
 
-    //Ver mis pdfs Usuarui normal
+    //Ver mis pdfs Usuario normal
     //Busca en la base de datos todos los usuarios y me trae el correspondiente
     //registrado
 
@@ -73,22 +73,23 @@
 
     .container(v-if="!isLoggedIn && showUsers")
       br
-      tr(v-for="usuario in website", v-if=("usuario.correo == currentUser"))
+      tr(v-for="usuario in listUser")
         p Nombres: {{usuario.nombre}} {{usuario.apellido}}
         p Cedula: {{usuario.id}}
         p Estos son sus datos
 
     //examenes
+    //muestra los pdfs a descargar de los USUARIOS
 
     .container(v-if="!isLoggedIn && pdfs")
-      div(col-xl v-for="u in website", v-if=("u.correo == currentUser"))
+      div(col-xl v-for="u in listUser")
         table(id="ue" class="table" style="width: 100%").table-hover
           thead
             tr
               th(scope="col") Fecha toma examen
               th(scope="col") Nombre del examen
               th(scope="col") PDF
-            tr(v-for="pdfs in listUser" v-if="pdfs.cc == u.id")
+            tr(v-for="pdfs in listPdfs")
               td(scope="col") {{pdfs.fecha}}
               td(scope="col") {{pdfs.name}}
               td(scope="col")
@@ -103,7 +104,6 @@ import Register from '../components/Register'
 import Submitpdf from '../components/Submitpdf'
 import firebase from 'firebase'
 
-
 export default {
   name: 'User',
   data() {
@@ -114,7 +114,8 @@ export default {
       newRegister : false,
       isLoggedIn : false,
       currentUser : false,
-      listUser : null,
+      listUser : {},
+      listPdfs : {},
       search : ''
     }
   },
@@ -122,32 +123,37 @@ export default {
   * created es una funcion de vue que se ejecuta antes de todo
   * funcion que auentifica si un usuario esta creado
   * y si es admind
+  * trae todos los elementos para el admind, obviamente si esta logueado
   */
-  created(){
-    if(firebase.auth().currentUser){
-      this.currentUser = firebase.auth().currentUser.email;
-      const us = firebase.auth().currentUser.email
-      const ref2 = db.child('usuarios').orderByChild('correo').equalTo(us)
+  async created(){
+    try{
 
+      this.$cookie.set('name', 'value', 1)
 
-      const ref1 = db.child('linkspdfs').orderByChild('cc').equalTo('80028284')
+      if(firebase.auth().currentUser.email == "juan@gmail.com"){
+        this.isLoggedIn = true;
 
+          this.uno()
 
-      ref1.on('value', snap => {
-          this.listUser = snap.val()
-        })
+        }
 
-    }
-    if(firebase.auth().currentUser.email == "juan@gmail.com"){
-      this.isLoggedIn = true;
+      if(firebase.auth().currentUser){
+        this.currentUser = firebase.auth().currentUser.email;
 
+        const us = await firebase.auth().currentUser.email
+        const ref2 = await db.child('usuarios').orderByChild('correo').equalTo(us)
 
-      const ref1 = db.child('usuarios')
+        await ref2.on('value', snap => {
+            this.listUser = snap.val()
+            console.log(this.listUser)
+          })
 
-      ref1.on('child_added', snap => {
-        this.listUser = snap.val()
-      })
+        this.tres()
+
       }
+    }catch (error) {
+      console.error(error);
+    }
   },
   methods: {
     /*
@@ -158,17 +164,29 @@ export default {
       this.$router.push('/');
       });
     },
-    /*
-    * funcion que devuelve una lista de usuarios
-    */
+    uno: function(){
 
+      const ref1 = db.child('usuarios')
+
+      ref1.on('value', snap => {
+        this.listUser = snap.val()
+      })
+
+    },
+    async tres(){
+      const refpdfs = await db.child('linkspdfs').orderByChild('cc').equalTo(Object.values(this.listUser)[0].id)
+
+      refpdfs.on('value', snap => {
+        this.listPdfs = snap.val()
+        console.log(this.listPdfs)
+      })
+    }
   },
   components: {
     Register,
     Submitpdf
     },
   firebase: {
-    website: websiteRef,
     links: linkspdfs
   }
 }
