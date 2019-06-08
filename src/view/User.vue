@@ -1,8 +1,7 @@
 <template lang="pug">
   .container
     nav(class="navbar navbar-expand-lg navbar-light")
-      a(v-if="!isLoggedIn" class="navbar-brand" href="/") BIENVENIDO </br> {{currentUser}}
-      a(v-if="isLoggedIn" class="navbar-brand" href="/") BIENVENIDO </br> {{Object.values(this.listUser)[0].correo}}
+      a(class="navbar-brand" href="/") BIENVENIDO </br> {{currentUser}}
       button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
         span(class="navbar-toggler-icon")
       div(class="collapse navbar-collapse" id="navbarText")
@@ -124,63 +123,53 @@ export default {
   * y si es admind
   * trae todos los elementos para el admind, obviamente si esta logueado
   */
-  async created(){
+  created(){
     this.$cookie.set('name', 'value', 1)
 
-    if(firebase.auth().currentUser.email == "juan@gmail.com"){
+    if(firebase.auth().currentUser.email == "juan@gmail.com") {
+      this.currentUser = firebase.auth().currentUser.email;
       this.isLoggedIn = true;
-
-        this.uno()
-
-      }
-
-    else if(firebase.auth().currentUser){
+      this.uno()
+    } else if(firebase.auth().currentUser) {
       this.currentUser = firebase.auth().currentUser.email;
 
-      const us = await firebase.auth().currentUser.email
-      const ref2 = await db.child('usuarios').orderByChild('correo').equalTo(us)
+      const us = firebase.auth().currentUser.email
+      const ref2 = db.child('usuarios').orderByChild('correo').equalTo(us)
 
-      await ref2.on('value', snap => {
+      ref2.on('value', snap => {
           this.listUser = snap.val()
-          console.log(this.listUser)
         })
-
-      this.tres()
-
+      setTimeout(this.tres,2000)
     }
-
   },
   methods: {
     /*
     * funcion para desloguear a un usuario autentificado
     */
-    logout: function(){
-    firebase.auth().signOut().then(() => {
-      this.$router.push('/');
+    logout: function() {
+      firebase.auth().signOut().then( () => {
+        this.$router.push('/');
       });
     },
-    uno: function(){
-
+    uno: function() {
       const ref1 = db.child('usuarios')
-
       ref1.on('value', snap => {
         this.listUser = snap.val()
       })
-
     },
-    async tres(){
-      const refpdfs = await db.child('linkspdfs').orderByChild('cc').equalTo(Object.values(this.listUser)[0].id)
-
-      refpdfs.on('value', snap => {
-        this.listPdfs = snap.val()
-        console.log(this.listPdfs)
-      })
+    tres() {
+      if(Object.values(this.listUser).length>0){
+        const refpdfs = db.child('linkspdfs').orderByChild('cc').equalTo(Object.values(this.listUser)[0].id)
+        refpdfs.on('value', snap => {
+          this.listPdfs = snap.val()
+        })
+      }
     }
   },
   components: {
     Register,
     Submitpdf
-    },
+  },
   firebase: {
     links: linkspdfs
   }
@@ -199,8 +188,6 @@ export default {
   background-color: #396aa6;
   margin-top: 60px;
 }
-
-
 
 .col-center{
   float: none;
