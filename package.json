@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "firebase": "^5.8.5",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "pug": "^2.0.3",
     "sass": "^1.17.2",
     "vue": "^2.5.2",
